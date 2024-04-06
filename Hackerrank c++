@@ -1,0 +1,66 @@
+#include <stack>
+#include <iostream>
+using namespace std;
+
+string isBalanced(string s) {
+    if (s.length()%2!=0){
+        return "NO";
+    }
+    else if (s.length()==0) {
+        return "YES";
+    }
+    stack<char> stack;
+    //Checking if ut begins with closing bracket
+       if(s[0]=='}' || s[0]==']' || s[0]==')'){
+          return "NO"; 
+       }
+    
+   for (int i=0; i<s.length(); i++){
+       //checking opening brackets
+       if(s[i]=='{' || s[i]=='[' || s[i]=='('){
+          stack.push(s[i]); 
+       }
+       
+       //checking closing brackets
+       if(s[i]=='}'&& !stack.empty() ){
+          if(stack.top()=='{'){
+              stack.pop();
+          }
+          else {
+              return "NO";
+          }
+       }
+        if(s[i]==']' && !stack.empty()){
+          if(stack.top()=='['){
+              stack.pop();
+          }
+          else {
+              return "NO";
+          }
+        }
+        if(s[i]==')' && !stack.empty()){
+          if(stack.top()=='('){
+              stack.pop();
+          }
+          else {
+              return "NO";
+          }
+       }
+       
+   } 
+    if(stack.empty()){
+        return "YES";
+    }
+    return "NO";
+
+}
+
+int main()
+{
+    string s;
+    cin>>s;
+    
+    cout<<endl<<isBalanced(s);
+
+    return 0;
+}
